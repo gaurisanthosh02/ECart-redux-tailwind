@@ -6,6 +6,7 @@ import Wishlist from './pages/Wishlist'
 import Cart from './pages/Cart'
 import View from './pages/View'
 import PageNotFound from './pages/PageNotFound'
+import Footer from './components/Footer'
 
 function App() {
 
@@ -18,6 +19,8 @@ function App() {
         <Route path='/:id/view' element={<View/>}/>
         <Route path='/*' element={<PageNotFound/>}/>
       </Routes>
+
+      <Footer/>
     </>
   )
 }
