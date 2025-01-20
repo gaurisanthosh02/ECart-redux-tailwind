@@ -3,12 +3,24 @@
 import { useDispatch, useSelector } from "react-redux"
 import Header from "../components/Header"
 import { removeItem } from "../redux/slices/wishlistSlice"
+import { addToCart } from "../redux/slices/cartSlice"
 
 const Wishlist = () => {
 
+  const userCart = useSelector(state=>state.cartReducer)
   const userWishlist = useSelector(state=>state.wishlistReducer)
   const dispatch = useDispatch()
 
+  const handleCart = (product) => {
+    dispatch(removeItem(product.id))
+    dispatch(addToCart(product))
+    const existingProduct = userCart?.find(item=>item?.id == product.id)
+    if(existingProduct){
+      alert("Product quantity incremented")
+    }else{
+      alert("Product added to cart")
+    }
+  }
 
   return (
     <>
@@ -28,7 +40,7 @@ const Wishlist = () => {
                         <h3 className="text-xl font-bold">{product.title}</h3>
                         <div className='flex- justify-evenly mt-3'>
                           <button onClick={()=>dispatch(removeItem(product?.id))}><i className="fa-solid fa-heart text-red-600"></i></button>
-                          <button className='text-xl'><i className="fa-solid fa-cart-shopping text-green-600"></i></button>
+                          <button onClick={()=>handleCart(product)} className='text-xl'><i className="fa-solid fa-cart-shopping text-green-600"></i></button>
                         </div>
                       </div>
               </div>
